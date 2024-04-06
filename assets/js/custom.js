@@ -39,7 +39,7 @@ $(document).ready(function() {
     ];
 
     $.ajax({
-      url: 'pontos_vendidos-1.0.0.json',
+      url: 'pontos_vendidos.json',
       success: function(data){
         // console.log(data);
         var div_pontos = $('#div_pontos')
