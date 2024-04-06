@@ -1,12 +1,20 @@
 text = "Oi gente, tudo bem? Me chamo Letícia e estou fazendo essa rifa para conseguir realizar uma cirurgia que custa R$ 15 mil reais. Fui diagnosticada com um tumor na coxa e preciso muito de sua ajuda para que minha saúde seja restaurada. Agradeço muito a todos que decidirem me ajudar. Abraço a todos e que Deus abençoe sua vida!";
 app_name = 'Rifa Solidária';
 number_points = 160;
-tipo_chave_pix = 'Chave PIX(Telefone)';
+tipo_chave_pix = 'Chave PIX(Telefone):';
 chave_pix = '(85)98925-2964';
 descricao_pix = 'Letícia Lima e Silva - Itaú Unibanco S.A';
 link_whatsapp = 'https://api.whatsapp.com/send/?phone=5585996500294&text&type=phone_number&app_absent=0';
 
 $(document).ready(function() {
+
+  $('#text_rifa').html(text);
+    $('a.chave_pix').attr('data-clipboard-text',chave_pix);
+    $('span.chave_pix').html(chave_pix);
+    $('#tipo_chave_pix').html(tipo_chave_pix);
+    $('#descricao_pix').html(descricao_pix);
+    $('#link_whatsapp').attr('href',link_whatsapp);
+
     clipboard = new ClipboardJS('.btn');
     clipboard.on('success', function(e) {
       alert('Copiado');
@@ -18,6 +26,7 @@ $(document).ready(function() {
     });
 
     clipboard.on('error', function(e) {
+      console.log(e);
       console.error('Action:', e.action);
       console.error('Trigger:', e.trigger);
     });
