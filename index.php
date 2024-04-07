@@ -1,5 +1,8 @@
 <?php
-include('../dados.php');
+$url_arquivo = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRxOspxFk1AQeOGTADB4Ie5o7mipxNZ4zsKlejNh9yFuLTAq_pNtIQPCMNmJiJskne1WNwBLNjtg0fc/pub?gid=155070209&single=true&output=csv";
+$homepage = file_get_contents($url_arquivo);
+var_dump(explode(',',$homepage));
+die();
 ?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">

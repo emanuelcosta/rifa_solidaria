@@ -6,6 +6,22 @@ chave_pix = '(85)98925-2964';
 descricao_pix = 'Letícia Lima e Silva - Itaú Unibanco S.A';
 link_whatsapp = 'https://api.whatsapp.com/send/?phone=5585996500294&text&type=phone_number&app_absent=0';
 
+
+function converterCSVparaArray(conteudoCSV) {
+  const linhas = conteudoCSV.split('\n');
+  const arrayCSV = [];
+
+  linhas.forEach(function (linha) {
+    const valores = linha.split(',');
+    arrayCSV.push({
+      number: valores[0],
+      name: valores[1]
+    })
+  });
+
+  return arrayCSV;
+}
+
 $(document).ready(function () {
 
   $('#text_rifa').html(text);
@@ -38,28 +54,21 @@ $(document).ready(function () {
     // 144,
   ];
 
-  var url = "https://script.google.com/macros/s/AKfycbzn1b9vKuUNLbMg7JQ2TPjiRQNnC0G8sfw6lDOAcImpDv_NtS1-mksP0bkZC8mqdpPo/exec?callback=ctrlq&name="
-  var name = "Amit Agarwal"
-
-  var request = jQuery.ajax({
-    crossDomain: true,
-    url: url + encodeURIComponent(name),
-    method: "GET",
-    dataType: "jsonp"
-  });
-
-  // $.ajax({
-  //   url: 'pontos_vendidos.json',
-  //   success: function (data) {
-  //     // console.log(data);
-  //     var div_pontos = $('#div_pontos')
-  //     for (i = 1; i <= 160; i++) {
-  //       div_pontos.append('<div class="col-md-2 col-lg-1 col-sm-2 com-xs-2 border border-secondary col-1 m-2 p-2 d-flex justify-content-center">' +
-  //         '<span> ' + ((data.includes(i)) ? '  <span class="badge bg-black font-weight-bold rounded-pill"><i class="fa fa-check "></i></span>' + '</span>' : i) +
-  //         '</div>')
-  //     }
-  //   }
-  // })
+  // URL = 'pontos_vendidos.json'
+  URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRxOspxFk1AQeOGTADB4Ie5o7mipxNZ4zsKlejNh9yFuLTAq_pNtIQPCMNmJiJskne1WNwBLNjtg0fc/pub?gid=1084970764&single=true&output=csv'
+  $.ajax({
+    url: URL,
+    success: function (data) {
+      array_data = converterCSVparaArray(data);
+      console.log(data);
+      var div_pontos = $('#div_pontos')
+      array_data.forEach(function (value, index) {
+        div_pontos.append('<div class="col-md-2 col-lg-1 col-sm-2 com-xs-2 border border-secondary col-1 m-2 p-2 d-flex justify-content-center">' +
+          '<span> ' + ((value['name'] != '') ? '<span class="badge bg-black font-weight-bold rounded-pill"><i class="fa fa-check "></i></span>' + '</span>' : value['number']) +
+          '</div>')
+      })
+    }
+  })
 
 
 });
