@@ -17,4 +17,23 @@ class App{
         $numeros->execute();
         return $numeros->fetchAll();
     }
+
+    public function get($id){
+        $numeros = $this->pdo->prepare("SELECT * FROM rifas_numeros where id = :id");
+        $numeros->execute([
+            ':id' => $id
+        ]);
+        return $numeros->fetch();
+    }
+
+    public function update($data){
+        $numeros = $this->pdo->prepare("UPDATE rifas_numeros SET nome = :nome, telefone = :telefone, pago = :pago WHERE id = :id;");
+        $numeros->execute([
+            ':id' => $data['id'],
+            ':nome' => $data['nome'],
+            ':telefone' => $data['telefone'],
+            ':pago' => $data['pago'],
+        ]);
+        return $numeros->rowCount();
+    }
 }
